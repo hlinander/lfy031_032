@@ -1,0 +1,15 @@
+apiVersion: image.openshift.io/v1
+kind: ImageStream
+metadata:
+  # (Below label is needed for Opendatahub.io/JupyterHub)
+  labels:
+    opendatahub.io/notebook-image: "true"
+  name: s2i-pytorch-notebook
+spec:
+  lookupPolicy:
+    local: true
+  tags:
+  - name: latest
+    from:
+      kind: DockerImage
+      name: quay.io/thoth-station/s2i-pytorch-notebook:latest

@@ -1,0 +1,23 @@
+kind: "BuildConfig"
+apiVersion: "v1"
+metadata:
+  name: "lfy032-jupyterhub-image"
+spec:
+  output:
+    to:
+      kind: ImageStreamTag
+      name: s2i-lfy032-jupyterhub:onnx
+  source:
+    dockerfile: |
+      FROM s2i-pytorch-notebook:latest
+      RUN pip install RISE 
+      RUN pip install testbook
+      RUN pip install onnxruntime
+    type: Dockerfile
+  strategy:
+    dockerStrategy:
+      from:
+        kind: ImageStreamTag
+        name: s2i-pytorch-notebook:latest
+#        namespace: -jupyterhub
+    type: Docker
